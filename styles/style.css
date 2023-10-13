@@ -1,0 +1,33 @@
+@import url("reset.css");
+
+html {
+	font-size: 300%;
+	width: 100%;
+	background-color: grey;
+}
+
+body {
+	width: 60%;
+	background-color: white;
+	margin: 0 auto 0 auto;
+	padding: 5% 0 5% 0;
+}
+
+th, td {
+	border: 2px solid black;
+	text-align: center;
+}
+
+table {
+	width: 50%;
+	margin: 0 auto 0 auto;
+}
+
+.field {
+	text-align: right;
+}
+
+.field input {
+	text-align: right;
+	font-size: 100%;
+}
