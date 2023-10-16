@@ -1,3 +1,7 @@
+<?php
+	session_start();
+	if(isset($_REQUEST['delete_history'])) $_SESSION = [];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +41,13 @@
 					$result = $x * $y;
 					break;
 				case '/':
-					$result = $x / $y;
+					try {
+						if(!$y) throw new Exception("division by zero");
+						$result = $x / $y;
+					} catch (Exception $e) {
+						echo 'Error: ',  $e->getMessage(), "\n";
+						$result = INF;
+					}
 					break;
 				default:
 					echo "<p>Wrong operation</p>";
@@ -45,14 +55,19 @@
 			if(isset($result)) {
 				echo "<p>Solution: " . $result . "</p>";
 				$record = "<p>" . $x . " " . $_REQUEST['operator'] . " " . $y . " = " . $result . "</p>";
-				session_start();
 				$_SESSION['logs'][] = $record;
-				echo "History: \n";
-				foreach(array_reverse($_SESSION['logs']) as $log) {
-					echo "<p>" . $log . "</p>\n";
-				}
 			}
-
+		}
+		if(isset($_SESSION["logs"])) {
+			echo "History:"; ?>
+			<form action="<?=$_SERVER["SCRIPT_NAME"]?>">
+				<input type="hidden" name="delete_history">
+				<input type="submit" value="delete history">
+			</form>
+			<?php
+			foreach(array_reverse($_SESSION['logs']) as $log) {
+				echo "<p>" . $log . "</p>\n";
+			}
 		}
 	?>
 </body>
