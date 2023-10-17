@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+	<h1>Basic calculator</h1>
 	<form action="<?=$_SERVER["SCRIPT_NAME"]?>">
 		<input type="text" name="x">
 		<select name="operator">
@@ -58,8 +59,11 @@
 				$_SESSION['logs'][] = $record;
 			}
 		}
+		?>
+		<div class="history"> 
+		<?php
 		if(isset($_SESSION["logs"])) {
-			echo "History:"; ?>
+			echo "<h2>History:</h2>"; ?>
 			<form action="<?=$_SERVER["SCRIPT_NAME"]?>">
 				<input type="hidden" name="delete_history">
 				<input type="submit" value="delete history">
@@ -70,5 +74,6 @@
 			}
 		}
 	?>
+		</div>
 </body>
 </html>
